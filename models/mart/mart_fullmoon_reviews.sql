@@ -12,7 +12,7 @@ full_moon_dates AS (
 SELECT
     r.*,
     CASE
-        WHEN fm.full_moon_date IS NOT NULL THEN 'not full moon'
+        WHEN fm.full_moon_date IS NULL THEN 'not full moon'
         ELSE 'full moon'
     END AS moon_phase
 FROM fct_reviews r
