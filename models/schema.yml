@@ -1,5 +1,11 @@
 models:
   - name: dim_listings_cleansed
+    data_tests:
+      - minimum_row_count:
+          arguments:
+            min_row_count: 1000
+          config:
+            severity: error
     columns:
       - name: listing_id
         description: Primary key for the listing
@@ -25,3 +31,43 @@ models:
                         'Private room',
                         'Shared room',
                         'Hotel room']
+
+      - name: minimum_nights
+        # description: '{{ doc("dim_listings_cleansed__minimum_nights") }}'
+        data_tests:
+          - positive_values
+
+  - name: dim_hosts_cleansed
+    config:
+      contract: 
+        enforced: true
+    columns:
+      - name: host_id
+        description: Primary key for the host
+        data_type: integer
+        data_tests:
+          - unique
+          - not_null
+
+      - name: host_name
+        description: Name of the host
+        data_type: string
+        data_tests:
+          - not_null
+
+      - name: is_superhost
+        description: Whether the host is a superhost
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['t', 'f']
+
+      - name: updated_at
+        description: Timestamp of the last update to the host's information
+        data_type: timestamp
+
+      - name: created_at
+        description: Timestamp of when the host's information was created
+        data_type: timestamp
+
