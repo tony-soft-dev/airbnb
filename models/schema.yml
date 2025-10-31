@@ -1,5 +1,6 @@
 models:
   - name: dim_listings_cleansed
+    description: "Cleansed dimension table for Airbnb listings."
     data_tests:
       - minimum_row_count:
           arguments:
@@ -33,11 +34,12 @@ models:
                         'Hotel room']
 
       - name: minimum_nights
-        # description: '{{ doc("dim_listings_cleansed__minimum_nights") }}'
+        description: '{{ doc("dim_listing_cleansed__minimum_nights") }}'
         data_tests:
           - positive_values
 
   - name: dim_hosts_cleansed
+    description: "Cleansed dimension table for Airbnb hosts."
     config:
       contract: 
         enforced: true
